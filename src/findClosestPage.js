@@ -12,13 +12,9 @@ const findClosestPage = (currentPage) => {
 	}
 	const finder = linkable => n => n.id === linkable.id;
 	let page = hierarchy.find(finder(currentPage));
-	let i =0;
 	while (page && !isSiteTree(page)) {
-		if (i > 10) break;
-		console.log(page, page.link);
 		const parentLinkable = linkable.find(findParent);
 		page = hierarchy.find(finder(parentLinkable));
-		i++;
 	}
 
 	return page;
