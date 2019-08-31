@@ -1,13 +1,18 @@
 import findParent from './findParent';
 import useHierarchy from './useHierarchy';
+import { DataObjectNode } from './_types';
 
-const buildBreadcrumbs = (currentPage, maxDepth = 20, showHidden = false) => {
+const buildBreadcrumbs = (
+	currentPage: DataObjectNode,
+	maxDepth:number = 20,
+	showHidden:boolean = false
+): DataObjectNode[] => {
 	const hierarchy = useHierarchy();
 
 	if (!currentPage) {
 		return [];
 	}
-	let page = currentPage;
+	let page: DataObjectNode|undefined = currentPage;
 	const pages = [];
 	while (page && (!maxDepth || pages.length < maxDepth)) {
         if (

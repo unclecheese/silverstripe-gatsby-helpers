@@ -1,14 +1,7 @@
 import { graphql, useStaticQuery } from 'gatsby';
-import isSiteTree from './isSiteTree';
 
-let nav;
-
-const useNavigation = () => {
-    if(nav) {
-        return nav;
-    }
-
-    const result = useStaticQuery(graphql`
+const hierarchyQuery = () => {
+    useStaticQuery(graphql`
         {
             allSilverStripeDataObject {
                 nodes {
@@ -20,27 +13,21 @@ const useNavigation = () => {
                     ancestry
                     SilverStripeSiteTree {
                         title
-                        menuTitle
-                        showInMenus
-                        sort
                         Children {
-	                        link
-	                        id
+                        	link
+                        	id
                         	SilverStripeSiteTree {
-	                        	title
-	                        	menuTitle
-	                        	sort
+                        		title
+                        		menuTitle
+                        		sort
                         	}
                         }
                     }
                 }
             }
         }
-    `);
-    nav = result.allSilverStripeDataObject.nodes
-    	.filter(isSiteTree);
+    `
+    )
+};
 
-    return nav;
-}
-
-export default useNavigation;
+export default hierarchyQuery;

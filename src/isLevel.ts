@@ -1,7 +1,9 @@
 import useHierarchy from './useHierarchy';
 import findParent from './findParent';
-const isLevel = (currentPage, level = 1) => {
-	let parent = currentPage;
+import { BaseNode } from './_types';
+
+const isLevel = (currentPage:BaseNode, level:number = 1): boolean => {
+	let parent:BaseNode|undefined = currentPage;
 	if (!parent) {
 		return false;
 	}

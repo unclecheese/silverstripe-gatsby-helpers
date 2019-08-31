@@ -1,10 +1,11 @@
 import useNavigation from './useNavigation';
 import findParent from './findParent';
-const sortFn = (a, b) => (
+import { DataObjectNode } from './_types';
+const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
 	a.SilverStripeSiteTree.sort - b.SilverStripeSiteTree.sort
 );
 
-const buildMenu = (menuLevel = 1, currentNode) => {
+const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjectNode[] => {
 	const siteTrees = useNavigation();
     if (menuLevel === 1) {
         return siteTrees
@@ -18,7 +19,7 @@ const buildMenu = (menuLevel = 1, currentNode) => {
     if (!currentNode) {
     	throw new Error(`Tried to build menu level ${menuLevel} without a current node passed as a second argument`)
     }
-    let parent = currentNode;
+    let parent: DataObjectNode|undefined = currentNode;
     const stack = [parent];
     if (parent) {
         while (

@@ -1,4 +1,4 @@
-const canonicalName = (className) => (
+const canonicalName = (className: string): string => (
     className.substr(className.lastIndexOf('\\') + 1)
 );
 
