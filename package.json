@@ -1,6 +1,6 @@
 {
   "name": "silverstripe-gatsby-helpers",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Helper functions for developing Gatsby sites that use SilverStripe CMS as a data source",
   "main": "index.js",
   "repository": "http://github.com/silverstripe/silverstripe-gatsby-helpers",
