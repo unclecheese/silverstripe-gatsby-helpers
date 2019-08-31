@@ -1,7 +1,7 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql } from 'gatsby';
 
-const hierarchyQuery = () => {
-    useStaticQuery(graphql`
+
+const query = graphql`
         {
             allSilverStripeDataObject {
                 nodes {
@@ -25,9 +25,6 @@ const hierarchyQuery = () => {
                     }
                 }
             }
-        }
-    `
-    )
-};
+        }`;
 
-export default hierarchyQuery;
+export default query;
