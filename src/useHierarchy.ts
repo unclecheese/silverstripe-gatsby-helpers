@@ -1,6 +1,5 @@
 // @ts-ignore
-import hierarchyQuery from '../queries/hierarchy';
-import { useStaticQuery } from 'gatsby';
+import useHierarchyQuery from '../queries/hierarchy';
 import { DataObjectNode, AllDataObjectQuery } from './_types';
 let hierarchy: DataObjectNode[];
 
@@ -9,7 +8,7 @@ const useHierarchy = (): DataObjectNode[] => {
         return hierarchy;
     }
 
-    const result:AllDataObjectQuery = useStaticQuery(hierarchyQuery);
+    const result:AllDataObjectQuery = useHierarchyQuery();
     hierarchy = result.allSilverStripeDataObject.nodes;
 
     return hierarchy;

@@ -1,30 +1,25 @@
-import { graphql } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 
-
-const query = graphql`
+const useHierarchyQuery = () => (
+    useStaticQuery(graphql`
         {
             allSilverStripeDataObject {
                 nodes {
-                    id
-                    uuid
-                    silverstripe_id
-                    parentUUID
-                    link
-                    ancestry
+                    ...CoreFields
                     SilverStripeSiteTree {
-                        title
+                        ...SilverStripeSiteTreeFields
                         Children {
-                        	link
-                        	id
+                            ...CoreFields
                         	SilverStripeSiteTree {
-                        		title
-                        		menuTitle
-                        		sort
+                                ...SilverStripeSiteTreeFields
                         	}
                         }
                     }
                 }
             }
-        }`;
+        }
+    `
+    )
+);
 
-export default query;
+export default useHierarchyQuery;

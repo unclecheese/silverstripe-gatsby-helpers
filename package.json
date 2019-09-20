@@ -9,6 +9,7 @@
   "private": false,
   "dependencies": {
     "@babel/runtime": "^7.0.0",
+    "classnames": "^2.2.6",
     "gatsby": "^2.15.1"
   },
   "devDependencies": {
@@ -23,7 +24,7 @@
     "gatsby-source-silverstripe": "^1"
   },
   "scripts": {
-    "watch": "tsc src/* --outDir lib --watch",
-    "build": "tsc src/* --outDir lib"
+    "watch": "tsc src/**/* --outDir lib --watch --jsx preserve --esModuleInterop",
+    "build": "tsc src/**/* --outDir lib --jsx preserve --esModuleInterop"
   }
 }

@@ -1,18 +1,16 @@
 import useHierarchy from './useHierarchy';
 import { BaseNode } from './_types';
 
-let path: string;
-let currentNode: BaseNode | undefined;
-
+const nodeCache = new Map();
 const useCurrentNode = (): BaseNode|null => {
-	// Lame. @react/router doesn't provide hooks yet.
     const browserPath = typeof window !== 'undefined' ? window.location.pathname : '/';
-    if (!path || path !== browserPath) {
+    if (!nodeCache.has(browserPath)) {
         const nodes = useHierarchy();
-        path = browserPath;
-        currentNode = nodes.find(node => node.link === path);
+        const currentNode = nodes.find(node => node.link === browserPath) || null;
+        nodeCache.set(browserPath, currentNode);    
     }
-    return currentNode || null;
+
+    return nodeCache.get(browserPath);
 };
 
 export default useCurrentNode;

@@ -6,15 +6,17 @@ const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
 );
 
 const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjectNode[] => {
-	const siteTrees = useNavigation();
+    const siteTrees = useNavigation();
     if (menuLevel === 1) {
-        return siteTrees
+        console.log('site trees', siteTrees);
+        const s = siteTrees
         	.filter(
             	({ parentUUID, SilverStripeSiteTree: { showInMenus }}) => (
-            		!parentUUID && showInMenus
+            		parentUUID === '__TOP__' && showInMenus
             	)
         	)
-        	.sort(sortFn)
+            .sort(sortFn);
+            return s;
     }
     if (!currentNode) {
     	throw new Error(`Tried to build menu level ${menuLevel} without a current node passed as a second argument`)
