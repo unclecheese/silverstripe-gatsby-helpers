@@ -1,6 +1,6 @@
 import useNavigation from './useNavigation';
 import useCurrentSiteTree from './useCurrentSiteTree';
-import { DataObjectNode } from './_types';
+import { DataObjectNode } from '../_types';
 
 const childrenCache = new Map();
 

@@ -1,6 +1,6 @@
-import useNavigation from './useNavigation';
+import useNavigation from '../hooks/useNavigation';
 import findParent from './findParent';
-import { DataObjectNode } from './_types';
+import { DataObjectNode } from '../_types';
 const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
 	a.SilverStripeSiteTree.sort - b.SilverStripeSiteTree.sort
 );
@@ -8,7 +8,6 @@ const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
 const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjectNode[] => {
     const siteTrees = useNavigation();
     if (menuLevel === 1) {
-        console.log('site trees', siteTrees);
         const s = siteTrees
         	.filter(
             	({ parentUUID, SilverStripeSiteTree: { showInMenus }}) => (

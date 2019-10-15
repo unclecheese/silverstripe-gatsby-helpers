@@ -1,4 +1,4 @@
-import { SyntheticEvent, ReactElement } from "react";
+import { SyntheticEvent, ReactElement, StatelessComponent } from "react";
 
 export interface AllBaseNodeQuery {
     allSilverStripeDataObject: AllBaseNodeResult;
@@ -52,19 +52,20 @@ export interface FieldNode {
     source: RawAttribute[]
 }
 
+// eslint-disable-next-line
 export enum SchemaType {
-    Integer,
-    Decimal,
-    String,
-    Text,
-    Boolean,
-    Date,
-    Time,
-    Datetime,
-    Hidden,
-    Structural,
-    SingleSelect,
-    MultiSelect,
+    Integer = 'Integer',
+    Decimal = 'Decimal',
+    String = 'String',
+    Text = 'Text',
+    Boolean = 'Boolean',
+    Date = 'Date',
+    Time = 'Date',
+    Datetime = 'Datetime',
+    Hidden = 'Hidden',
+    Structural = 'Structural',
+    SingleSelect = 'SingleSelect',
+    MultiSelect = 'MultiSelect',
 }
 
 export interface RawFieldNode extends FieldNode {
@@ -77,7 +78,7 @@ export interface NormalisedFieldNode extends FieldNode {
     attributes: NormalisedAttributes
     data: ArbitraryData
     childFields: NormalisedFieldNode[]
-    component: ReactElement|null
+    Component: StatelessComponent|null
 }
 
 export interface RawAttribute {

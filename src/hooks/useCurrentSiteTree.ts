@@ -1,8 +1,8 @@
 import useHierarchy from './useHierarchy';
-import isSiteTree from './isSiteTree';
+import isSiteTree from '../utils/isSiteTree';
 import useCurrentNode from './useCurrentNode';
-import findParent from './findParent';
-import { BaseNode, DataObjectNode } from './_types';
+import findParent from '../utils/findParent';
+import { BaseNode, DataObjectNode } from '../_types';
 
 let currentSiteTree: DataObjectNode|null;
 

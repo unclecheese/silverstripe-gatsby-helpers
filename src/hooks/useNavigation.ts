@@ -1,5 +1,5 @@
-import isSiteTree from './isSiteTree';
-import { DataObjectNode } from './_types';
+import isSiteTree from '../utils/isSiteTree';
+import { DataObjectNode } from '../_types';
 import useHierarchy from './useHierarchy';
 
 let nav: DataObjectNode[];

@@ -1,6 +1,6 @@
 import useCurrentSiteTree from './useCurrentSiteTree';
-import buildBreadcrumbs from './buildBreadcrumbs';
-import { DataObjectNode } from './_types';
+import buildBreadcrumbs from '../utils/buildBreadcrumbs';
+import { DataObjectNode } from '../_types';
 
 const breadcrumbCache = new Map();
 

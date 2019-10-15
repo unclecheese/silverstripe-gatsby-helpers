@@ -1,5 +1,5 @@
 import useHierarchy from './useHierarchy';
-import { BaseNode } from './_types';
+import { BaseNode } from '../_types';
 
 const nodeCache = new Map();
 const useCurrentNode = (): BaseNode|null => {

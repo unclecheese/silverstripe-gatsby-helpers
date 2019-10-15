@@ -1,4 +1,4 @@
-import isLevel from './isLevel';
+import isLevel from '../utils/isLevel';
 import useCurrentSiteTree from './useCurrentSiteTree';
 
 const useIsLevel = (level: number): boolean => {

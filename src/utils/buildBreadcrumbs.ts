@@ -1,6 +1,6 @@
 import findParent from './findParent';
-import useHierarchy from './useHierarchy';
-import { DataObjectNode } from './_types';
+import useHierarchy from '../hooks/useHierarchy';
+import { DataObjectNode } from '../_types';
 
 const buildBreadcrumbs = (
 	currentPage: DataObjectNode,

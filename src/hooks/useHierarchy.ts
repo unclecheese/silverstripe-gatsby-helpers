@@ -1,6 +1,6 @@
 // @ts-ignore
-import useHierarchyQuery from '../queries/hierarchy';
-import { DataObjectNode, AllDataObjectQuery } from './_types';
+import useHierarchyQuery from '../../queries/hierarchy';
+import { DataObjectNode, AllDataObjectQuery } from '../_types';
 let hierarchy: DataObjectNode[];
 
 const useHierarchy = (): DataObjectNode[] => {

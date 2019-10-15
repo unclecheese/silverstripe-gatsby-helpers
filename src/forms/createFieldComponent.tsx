@@ -1,20 +1,23 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, StatelessComponent } from 'react';
 import { NormalisedFieldNode, SchemaType } from '../_types';
 // @ts-ignore
 import classnames from 'classnames';
 
-const createInputCreator = (field: NormalisedFieldNode) => (type: string, className: string|null = null): ReactElement => {
+const createInputCreator = 
+(field: NormalisedFieldNode) =>
+(type: string, className: string|null = null): StatelessComponent =>
+(props): ReactElement => {
     const inputClass = className || type;
     const classes = {
         [field.extraClass]: true,
         [inputClass]: true
     };
     return (
-        <input type={type} name={field.name} {...field.attributes} className={classnames(classes)} />
+        <input type={type} name={field.name} {...field.attributes} className={classnames(classes)} {...props} />
     );
 };
 
-const createFieldComponent = (field: NormalisedFieldNode): ReactElement|null => {
+const createFieldComponent = (field: NormalisedFieldNode): StatelessComponent|null => {
     const createInput = createInputCreator(field);
     switch (field.schemaType) {
         case SchemaType.Integer:
@@ -24,10 +27,10 @@ const createFieldComponent = (field: NormalisedFieldNode): ReactElement|null => 
         case SchemaType.Text:
             const isMultiLine = (field.data.rows && field.data.rows > 1);
             return isMultiLine
-                ? <textarea name={field.name} {...field.attributes} className={classnames({
+                ? props => <textarea name={field.name} {...field.attributes} className={classnames({
                     [field.extraClass]: true,
                     textarea: true
-                })} />
+                })} {...props} />
                 : createInput('text');
         case SchemaType.Date:
             return createInput('date');
@@ -38,29 +41,26 @@ const createFieldComponent = (field: NormalisedFieldNode): ReactElement|null => 
         case SchemaType.Hidden:
             return createInput('hidden');
         case SchemaType.SingleSelect:
-            return (
+            return props => (
                 <select name={field.name} {...field.attributes} className={classnames({
                     [field.extraClass]: true,
                     dropdown: true
-                })}>
+                })} {...props}>
                     {field.source.map(({ name, value }) => (
                         <option key={name} value={name}>{value}</option>
                     ))}
                 </select>
             );
-            break;
         case SchemaType.Structural:
-            return (
-                <div className='composite'>
+            return props => (
+                <div className='composite' {...props}>
                     {field.childFields.map(createFieldComponent)}
                 </div>
             );
-            break;
         case SchemaType.Boolean:
             return createInput('checkbox');
-            break;
         case SchemaType.MultiSelect:
-            return (
+            return props => (
                 <ul {...field.attributes}>
                     {field.source.length > 0 && field.source.map(option => {
                         const id = `${field.name}__${option.name}`;
@@ -69,9 +69,10 @@ const createFieldComponent = (field: NormalisedFieldNode): ReactElement|null => 
                                 <input
                                     id={id}
                                     className="checkbox"
-                                    name={field.name}
+                                    name={`${field.name}[]`}
                                     value={option.name}
                                     checked={field.value.includes(option.name)}
+                                    {...props}
                                 />
                                 <label htmlFor={id}>{option.value}</label>
                             </li> 
@@ -82,7 +83,6 @@ const createFieldComponent = (field: NormalisedFieldNode): ReactElement|null => 
                     }
                 </ul>
             );
-            break;
         default:
             return null;
       

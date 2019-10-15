@@ -8,12 +8,11 @@ const fieldMap = (fieldNode: RawFieldNode): NormalisedFieldNode => {
         ...fieldNode,
         attributes: normaliseAttributes(fieldNode.attributes),
         data: JSON.parse(fieldNode.data),
-        childFields: fieldNode.childFields.map(fieldMap),
-        component: null,
+        childFields: fieldNode.childFields ? fieldNode.childFields.map(fieldMap) : [],
+        Component: null,
     };
     const Component = createFieldComponent(normalised);
-    normalised.component = Component;
-
+    normalised.Component = Component;
     return normalised;
 }
 
@@ -29,12 +28,17 @@ const extractFormData = (form: SilverStripeForm): FormData => {
     });
     const { formFields, formActions, attributes: rawAttributes } = form;
 
-    const initialValues = formFields.reduce((values: FormHash, { name, value }): FormHash => {
+    const addValue = (values: FormHash, fieldNode: RawFieldNode): FormHash => {
+        const { name, value } = fieldNode;
         values[name] = value;
-    
+        if (fieldNode.childFields) {
+            fieldNode.childFields.forEach(childNode => {
+                addValue(values, childNode);
+            })
+        }
         return values;
-    }, {});
-
+    }
+    const initialValues = formFields.reduce(addValue, {});
     const validator = (values: FormHash): FormHash => {
         const errors: FormHash = {};
         Object.entries(values).forEach(([name, val]) => {
