@@ -25,7 +25,7 @@
     "gatsby-source-silverstripe": "^1"
   },
   "scripts": {
-    "watch": "tsc src/**/* --outDir lib --watch --jsx react --esModuleInterop --noImplicitUseStrict",
-    "build": "tsc src/**/* --outDir lib --jsx react --esModuleInterop"
+    "watch": "tsc src/**/* --outDir lib --watch --jsx react --esModuleInterop --noImplicitUseStrict --target es2017",
+    "build": "tsc src/**/* --outDir lib --jsx react --esModuleInterop --noImplicitUseStrict --target es2017"
   }
 }

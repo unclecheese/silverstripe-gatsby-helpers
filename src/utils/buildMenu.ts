@@ -1,4 +1,4 @@
-import useNavigation from '../hooks/useNavigation';
+import getNavigation from '../context/getNavigation';
 import findParent from './findParent';
 import { DataObjectNode } from '../_types';
 const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
@@ -6,7 +6,7 @@ const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
 );
 
 const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjectNode[] => {
-    const siteTrees = useNavigation();
+    const siteTrees = getNavigation();
     if (menuLevel === 1) {
         const s = siteTrees
         	.filter(
@@ -23,11 +23,10 @@ const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjec
     let parent: DataObjectNode|undefined = currentNode;
     const stack = [parent];
     if (parent) {
-        while (
-            (parent = siteTrees.find(findParent(parent)))
-            && parent.silverstripe_id
-        ) {
+        parent = siteTrees.find(findParent(parent))
+        while (parent) {
             stack.unshift(parent);
+            parent = siteTrees.find(findParent(parent))
         }
     }
     const childrenOf = stack[menuLevel - 2];

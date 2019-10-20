@@ -1,17 +1,17 @@
-import useHierarchy from './useHierarchy';
+import getHierarchy from './getHierarchy';
 import isSiteTree from '../utils/isSiteTree';
-import useCurrentNode from './useCurrentNode';
+import getCurrentNode from './getCurrentNode';
 import findParent from '../utils/findParent';
 import { BaseNode, DataObjectNode } from '../_types';
 
 let currentSiteTree: DataObjectNode|null;
 
-const useCurrentSiteTree = (): DataObjectNode|null => {
+const getCurrentSiteTree = (): DataObjectNode|null => {
     if (currentSiteTree) {
         return currentSiteTree;
     }
-    const currentNode = useCurrentNode();
-    const hierarchy = useHierarchy();
+    const currentNode = getCurrentNode();
+    const hierarchy = getHierarchy();
 
 	if (currentNode && currentNode.parentUUID === null) {
 		return null;
@@ -30,4 +30,4 @@ const useCurrentSiteTree = (): DataObjectNode|null => {
     return null;
 };
 
-export default useCurrentSiteTree;
+export default getCurrentSiteTree;

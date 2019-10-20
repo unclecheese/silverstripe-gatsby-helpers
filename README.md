@@ -12,18 +12,20 @@ A suite of functions to help with various tasks in [SilverStripe](https://silver
 
 ```js
 import React from 'react';
-import { buildMenu, useCurrentPage } from 'silverstripe-gatsby-helpers';
+import { getMenu } from 'silverstripe-gatsby-helpers';
 import { Link } from 'gatsby';
+import classnames from 'classnames';
 
 const Menu = ({ level }) => {
-    const currentPage = useCurrentPage();
-    const menuItems = buildMenu(currentPage, level);
+    const menuItems = getMenu(level);
 
     return (
         <nav>
 	        <ul>
 	            {menuItems.map(item => (
-	                <li key={item.id}>
+	                <li className={classnames({
+	                	active: item.isCurrent
+	                }) key={item.id}>
 	                	<Link to={item.link}>
 	                		{item.SilverStripeSiteTree.menuTitle}
 	                	</Link>
@@ -39,18 +41,20 @@ const Menu = ({ level }) => {
 
 ```js
 import React from 'react';
-import { buildBreadcrumbs, useCurrentPage } from 'silverstripe-gatsby-helpers';
+import { getBreadcrumbs } from 'silverstripe-gatsby-helpers';
 import { Link } from 'gatsby';
 
 const Breadcrumbs = () => {
-    const currentPage = useCurrentPage();
-    const breadcrumbs = buildBreadcrumbs(currentPage);
+    const breadcrumbs = getBreadcrumbs();
     return (
         <div className="breadcrumbs">
-            {breadcrumbs.map(node => (
-                <Link to={node.link} key={node.silverstripe_id}>
-                	{node.SilverStripeSiteTree.title}
-                </Link>
+            {breadcrumbs.map((node, i) => (
+            	<>
+            		{i && `/`}
+                	<Link to={node.link} key={node.uuid}>
+                		{node.SilverStripeSiteTree.title}
+                	</Link>
+                </>
             ))}
         </div>
     )
@@ -60,29 +64,54 @@ const Breadcrumbs = () => {
 ### Show subnav
 
 ```js
-const currentNode = useCurrentPage();
-const closestSiteTree = findClosestPage(currentNode);
-const { Children } = closestSiteTree.SilverStripeSiteTree;
-const hasSubnav = (isLevel(closestSiteTree, 2) || (Children && !!Children.length));
+import { isLevel, getChildren, getMenu } from 'silverstripe-gatsby-helpers';
+
+const isLevel2 = isLevel(2);
+const hasSubnav = isLevel2 || getChildren().length > 0;
+const menuItems = isLevel2 ? getMenu(2) : getChildren();
 
 {hasSubNav && 
 	<ul>
-	{Children.map(child => <li>{child.SilverStripeSiteTree.title})}
+	{menuItems.map(child => (
+		<li key={child.uuid>{child.SilverStripeSiteTree.title}</li>
+	))}
 	</ul>
 }
 ```
 
 ## Included functions
 
-**buildMenu(currentNode: Page, level:int = 1): Page[]**
+export { default as isFile } from './lib/utils/isFile';
+export { default as isSiteTree } from './lib/utils/isSiteTree';
+export { default as canonicalName } from './lib/utils/canonicalName';
+export { default as findParent } from './lib/utils/findParent';
+export { default as findAncestors } from './lib/utils/findAncestors';
+
+export { default as getMenu } from './lib/context/getMenu';
+export { default as getNavigation } from './lib/context/getNavigation';
+export { default as isLevel } from './lib/context/isLevel';
+export { default as getCurrentNode } from './lib/context/getCurrentNode';
+export { default as getCurrentSiteTree } from './lib/context/getCurrentSiteTree';
+export { default as getBreadcrumbs } from './lib/context/getBreadcrumbs';
+export { default as getChildren } from './lib/context/getChildren';
+export { default as getParent } from './lib/context/getParent';
+export { default as getHierarchy, initHierarchy } from './lib/context/getHierarchy';
+export { default as getAncestors } from './lib/context/getAncestors';
+
+export { default as extractFormData } from './lib/forms/extractFormData';
+export { default as SSFieldHolder } from './lib/forms/SSFieldHolder';
+export { default as normaliseAttribtues } from './lib/forms/normaliseAttributes';
+
+
+**getMenu(level:int = 1): DataObjectNode[]**
 
 Like its SilverStripe counterpart, builds a menu for the current page given a `level`.
-Requires a `currentNode`, which can be obtained with `useCurrentPage()`.
+Relies on context provided by `getCurrentSiteTree()`.
 
-**buildBreadcrumbs(currentPage: Page, maxDepth:int = 20, showHidden:bool = false): Page[]**
+**getBreadcrumbs(maxDepth:int = 20, showHidden:bool = false): DataObjectNode[]**
 
 Like its SilverStripe counterpart, builds a list of parent nodes to the current page.
-Requires a `currentNode`, which can be obtained with `useCurrentPage()`.
+Relies on context provided by `getCurrentSiteTree()`.
 
 **isLevel(node: Node, level:int): bool**
 

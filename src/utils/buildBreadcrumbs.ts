@@ -1,5 +1,5 @@
 import findParent from './findParent';
-import useHierarchy from '../hooks/useHierarchy';
+import getHierarchy from '../context/getHierarchy';
 import { DataObjectNode } from '../_types';
 
 const buildBreadcrumbs = (
@@ -7,7 +7,7 @@ const buildBreadcrumbs = (
 	maxDepth:number = 20,
 	showHidden:boolean = false
 ): DataObjectNode[] => {
-	const hierarchy = useHierarchy();
+	const hierarchy = getHierarchy();
 
 	if (!currentPage) {
 		return [];
@@ -25,7 +25,7 @@ const buildBreadcrumbs = (
         page = hierarchy.find(findParent(page));
 	}
 
-	return pages;
+	return pages.reverse();
 };
 
 export default buildBreadcrumbs;

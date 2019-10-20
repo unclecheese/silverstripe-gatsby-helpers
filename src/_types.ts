@@ -1,4 +1,4 @@
-import { SyntheticEvent, ReactElement, StatelessComponent } from "react";
+import { SyntheticEvent, StatelessComponent } from "react";
 
 export interface AllBaseNodeQuery {
     allSilverStripeDataObject: AllBaseNodeResult;

@@ -1,11 +1,11 @@
-import useCurrentSiteTree from './useCurrentSiteTree';
+import getCurrentSiteTree from './getCurrentSiteTree';
 import buildBreadcrumbs from '../utils/buildBreadcrumbs';
 import { DataObjectNode } from '../_types';
 
 const breadcrumbCache = new Map();
 
-const useBreadcrumbs = (maxDepth: number = 20, showHidden: boolean = false): DataObjectNode[] => {
-    const currentPage = useCurrentSiteTree();
+const getBreadcrumbs = (maxDepth: number = 20, showHidden: boolean = false): DataObjectNode[] => {
+    const currentPage = getCurrentSiteTree();
     if (!currentPage) {
         return [];
     }
@@ -18,4 +18,4 @@ const useBreadcrumbs = (maxDepth: number = 20, showHidden: boolean = false): Dat
     return breadcrumbCache.get(sku);
 };
 
-export default useBreadcrumbs;
+export default getBreadcrumbs;
