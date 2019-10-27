@@ -2,7 +2,7 @@ import getNavigation from '../context/getNavigation';
 import findParent from './findParent';
 import { DataObjectNode } from '../_types';
 const sortFn = (a: DataObjectNode, b: DataObjectNode): number => (
-	a.SilverStripeSiteTree.sort - b.SilverStripeSiteTree.sort
+	a.SiteTree.sort - b.SiteTree.sort
 );
 
 const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjectNode[] => {
@@ -10,7 +10,7 @@ const buildMenu = (currentNode: DataObjectNode, menuLevel:number = 1): DataObjec
     if (menuLevel === 1) {
         const s = siteTrees
         	.filter(
-            	({ parentUUID, SilverStripeSiteTree: { showInMenus }}) => (
+            	({ parentUUID, SiteTree: { showInMenus }}) => (
             		parentUUID === '__TOP__' && showInMenus
             	)
         	)

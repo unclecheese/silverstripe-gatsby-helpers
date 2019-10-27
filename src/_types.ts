@@ -1,11 +1,11 @@
 import { SyntheticEvent, StatelessComponent } from "react";
 
 export interface AllBaseNodeQuery {
-    allSilverStripeDataObject: AllBaseNodeResult;
+    allSsDataObject: AllBaseNodeResult;
 }
 
 export interface AllDataObjectQuery {
-    allSilverStripeDataObject: AllDataObjectResult;
+    allSsDataObject: AllDataObjectResult;
 }
 
 export interface AllDataObjectResult {
@@ -26,7 +26,7 @@ export interface BaseNode {
 }
 
 export interface DataObjectNode extends BaseNode {
-    SilverStripeSiteTree: SilverStripeSiteTree;
+    SiteTree: SilverStripeSiteTree;
 };
 
 export interface SilverStripeSiteTree {

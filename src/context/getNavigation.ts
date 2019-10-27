@@ -9,7 +9,7 @@ const getNavigation = () => {
         return nav;
     }
 
-    nav = getHierarchy().filter(n => isSiteTree(n) && n.SilverStripeSiteTree.showInMenus);
+    nav = getHierarchy().filter(n => isSiteTree(n) && n.SiteTree.showInMenus);
 
     return nav;
 }

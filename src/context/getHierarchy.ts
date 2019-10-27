@@ -4,7 +4,7 @@ import { DataObjectNode, AllDataObjectQuery } from '../_types';
 let hierarchy: DataObjectNode[];
 
 const initHierarchy = (result:AllDataObjectQuery) => {
-    hierarchy = result.allSilverStripeDataObject.nodes;
+    hierarchy = result.allSsDataObject.nodes;
 };
 
 const getHierarchy = (): DataObjectNode[] => {

@@ -17,7 +17,7 @@ const buildBreadcrumbs = (
 	while (page && (!maxDepth || pages.length < maxDepth)) {
         if (
         	showHidden ||
-        	(page.SilverStripeSiteTree && page.SilverStripeSiteTree.showInMenus) ||
+        	(page.SiteTree && page.SiteTree.showInMenus) ||
         	(page.silverstripe_id === currentPage.silverstripe_id)
         ) {
             pages.push(page);
