@@ -10,7 +10,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "classnames": "^2.2.6",
-    "gatsby": "^2.15.1",
+    "gatsby": "^4.25.7",
     "react": "^16"
   },
   "devDependencies": {
